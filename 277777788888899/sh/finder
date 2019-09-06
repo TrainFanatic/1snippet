@@ -1,0 +1,28 @@
+#!/bin/bash
+if [ ! $1 ] #checks if 1st argument is present
+then
+cat << eol
+FACTOR FINDER HELP
+syntax: ./`basename $0` [-h] n̲u̲m̲b̲e̲r̲ [f̲i̲l̲e̲]
+This program will find factors of n̲u̲m̲b̲e̲r̲ and output results to f̲i̲l̲e̲
+eol
+exit
+fi
+if [ $2 ]
+then
+file=$2
+else
+file=./factors
+fi
+i=1
+list=""
+for i in $(jot -  1 $(expr $1 / 2 + 1))
+do
+
+if [ $(echo $1 % $i | bc) -eq 0 ]
+then
+echo $i >> $file
+fi
+
+done
+echo "DONE.. CLOSING"
