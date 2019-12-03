@@ -1,0 +1,61 @@
+#!/bin/bash
+timesfailed=1
+guess=$3
+function rollthedice {
+r=0
+clear
+echo "Your guess is $guess. This is your number $timesfailed chance"
+sleep 3
+while [ $r -le 300 ]
+do
+rand=$(echo "$RANDOM % 6 + 1" | bc) #simplest random number generator
+echo -n "$rand "
+#sleep 0.1
+r=$(echo "$r + 1" | bc)
+done
+#use $rand as random number, always. NOT $RANDOM!!!
+echo ""
+echo -n "The number is"
+for i in 1 2 3
+do
+echo -n "."
+sleep 0.1
+done 
+sleep 2
+echo "$rand"
+sleep 2
+checkwin
+}
+function checkwin {
+if [ $rand = $guess ]
+then
+tokens=$(echo "$tokens * 2" | bc)
+echo "Now, you have $tokens tokens."
+
+./game $tokens $round
+
+elif [ $timesfailed -le 2 ]
+then
+timesfailed=$(echo "$timesfailed + 1" | bc)
+rollthedice
+else
+echo "Oh no... You now have 0 tokens."
+sleep 2
+echo "RESULT: 0 TOKENS"
+fi
+}
+round=$(echo "$2 + 1" | bc)
+clear
+tokens=$1
+tx2=$(echo "$tokens * 2" | bc)
+echo "You have $tokens tokens. If you win, you will get $tx2 tokens. But, if you lose, you get nothing."
+read -n1 -p "Would you like to proceed, or don't proceed and cash in? (y/n)" result
+if [ $result = "y" ]
+then
+rollthedice
+
+elif [ $result = "n" ]
+then
+echo "You decide to cash-in. You end up with $tokens TOKENS"
+echo "RESULT: $tokens TOKENS"
+fi

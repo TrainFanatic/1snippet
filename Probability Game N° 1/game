@@ -1,0 +1,41 @@
+#!/bin/bash
+cat << eol
+–––––A Dice Throwing Game–––––
+RULES:
+You start with 1 token.
+You will be asked to pick a number between 1 and 6.
+The computer will simulate throwing the dice three times.
+If your number is correct within the three dice-throws, your pot is doubled.
+If not, you lose the entire pot.
+eol
+
+
+if [ ! $1 ]
+then
+tokens=1
+else
+tokens=$1 #starting tokens is equal to first argument
+fi
+if [ ! $2 ]
+then
+round=1
+else
+round=$2
+fi
+read -n1 -p "Do you want to continue playing? (y/n) " playing
+if [ $playing = "n" ]
+then
+echo "You have decided to cash in. You now have $tokens tokens."
+echo "RESULT: $tokens TOKENS"
+exit
+fi
+printf "\nRound $round\nPick a number between 1 and 6"\!
+read -n1 number
+clear
+if [ $number -a $number -ge 1 -a $number -le 6 ] 2>/dev/null
+then
+./number\ gen $tokens $round "$number"
+else
+echo "Sorry, your number is outside the range! Try again"
+./game $tokens $round
+fi
