@@ -8,7 +8,8 @@
 
 ### List of current projects
 
-This list is currently empty. Just wait for something to happen
+- 277777788888899
+- Probability Game N° 1
 
 ### Contact
 
