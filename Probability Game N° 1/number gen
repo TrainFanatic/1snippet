@@ -1,6 +1,14 @@
 #!/bin/bash
 timesfailed=1
 guess=$3
+
+function initfile {
+for i in 1 2 3 4 5 6
+do
+occu[$i]=0 #stores how common the numbers were in RNG set
+done
+
+}
 function rollthedice {
 r=0
 clear
@@ -10,6 +18,7 @@ while [ $r -le 300 ]
 do
 rand=$(echo "$RANDOM % 6 + 1" | bc) #simplest random number generator
 echo -n "$rand "
+num2file $rand
 #sleep 0.1
 r=$(echo "$r + 1" | bc)
 done
@@ -44,6 +53,32 @@ sleep 2
 echo "RESULT: 0 TOKENS"
 fi
 }
+function num2file {
+if [ $1 -eq 1 ]
+then
+occu[1]=$(echo "${occu[1]} + 1" | bc)
+elif [ $1 -eq 2 ]
+then
+occu[2]=$(echo "${occu[2]} + 1" | bc)
+elif [ $1 -eq 3 ]
+then
+occu[3]=$(echo "${occu[3]} + 1" | bc)
+elif [ $1 -eq 4 ]
+then
+occu[4]=$(echo "${occu[4]} + 1" | bc)
+elif [ $1 -eq 5 ]
+then
+occu[5]=$(echo "${occu[5]} + 1" | bc)
+elif [ $1 -eq 6 ]
+then
+occu[6]=$(echo "${occu[6]} + 1" | bc)
+else
+
+fi
+
+
+}
+initfile
 round=$(echo "$2 + 1" | bc)
 clear
 tokens=$1
