@@ -8,6 +8,10 @@ You will be asked to pick a number between 1 and 6.
 The computer will simulate throwing the dice three times.
 If your number is correct within the three dice-throws, your pot is doubled.
 If not, you lose the entire pot.
+
+The RNG:
+900 numbers, each between 1 and 6 are generated. The result of the RNG is the number
+that appears most commonly in that set of 900 numbers.
 –––––––––––––––––––––––––––––
 eol
 
