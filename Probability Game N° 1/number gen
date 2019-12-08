@@ -41,7 +41,7 @@ if [ $largest = $guess ]
 then
 tokens=$(echo "$tokens * 2" | bc)
 echo "Now, you have $tokens tokens."
-
+sleep 2
 ./game $tokens $round
 
 elif [ $timesfailed -le 2 ]
