@@ -1,4 +1,19 @@
 #!/bin/bash
+function yesno {
+
+if [ $playing = "n" ] 2>/dev/null
+then
+echo "You have decided to cash in. You now have $tokens tokens."
+echo "RESULT: $tokens TOKENS"
+exit
+elif [ $playing != "y" ] 2>/dev/null
+then
+echo "Try again, your input was not y or n"
+read -n1 -p "Do you want to continue playing? (y/n) " playing
+yesno
+fi
+
+}
 clear
 cat << eol
 –––––A Dice Throwing Game–––––
@@ -30,12 +45,7 @@ round=$2
 fi
 echo "You have $tokens tokens."
 read -n1 -p "Do you want to continue playing? (y/n) " playing
-if [ $playing = "n" ]
-then
-echo "You have decided to cash in. You now have $tokens tokens."
-echo "RESULT: $tokens TOKENS"
-exit
-fi
+yesno
 printf "\nRound $round\nPick a number between 1 and 6"\!
 read -n1 number
 clear
