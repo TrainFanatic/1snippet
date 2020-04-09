@@ -1,0 +1,86 @@
+#!/bin/bash
+cat << EOF
+Welcome to bcplus. It's a tiny extension that adds extra functionality.
+
+CURRENTLY DOES NOT SUPPORT MULTI-LETTER VARIABLE
+
+Designed by TrainFanatic
+
+For further help, type bcplus help
+EOF
+
+#initialising----
+##define checkparams for init
+function checkparams {
+#in this, $1 will be arg to check for in bcplus given params, and $2 will be variable to write 'true' to
+if [ $(echo $@ | grep $1) ]
+then 
+export "$2"="true"
+echo "param $1 found, activating..."
+else
+echo "param $1 not found"
+fi
+}
+##define variable rules
+export vars
+checkparams help info #info/help page
+#checkparams --- ---
+
+
+##define checknums (it checks for anything not number, needed for detecting variables)
+
+function checknum {
+
+for i in 1 2 3 4 5 6 7 8 9 0
+do
+if [ ! $(echo $1 | grep $i) ]
+then
+result='var'
+varname=$1
+#insert recursive function that checks for letter until it isn't and the name of the variable is all of the letters.
+fi
+done
+if [ ! $result == 'var' ]
+then
+result='num'
+fi
+
+##define pos (finds character at certain position)
+function pos {
+echo $1 | head -c"$2" | tail -c1
+
+#end of initialising
+
+#start of misc eg help
+if [ $help == "true" ]
+then
+cat << EOL
+bcplus help
+
+BCPLUS OVERVIEW---
+
+bcplus is a simple extension to GNU bc that just adds some extra functionality
+
+Currently, it adds:
+
+  - Extra variable functionality (a+a=2a, a*a=a^2 etc..)
+
+BCPLUS OPTIONS/PARAMETERS
+
+bcplus help - opens this help page
+bcplus force FUNCTION - forces FUNCTION to always be active. This is not yet implemented and is in the testing stage
+
+Made by TrainFanatic
+end
+EOL
+fi
+
+#start of code
+
+read input
+
+
+
+if [ 
+
+
