@@ -48,7 +48,30 @@ fi
 ##define pos (finds character at certain position)
 function pos {
 echo $1 | head -c"$2" | tail -c1
-
+}
+##define askinit {
+echo "Variable of 1 length detected! Initialise variable $varname""? (y/n)"
+read initialiseq
+if [ ! $initialiseq == 'y' -o ! $initialiseq == 'n' ]
+then
+echo "Response wasn't y or n. Please input again"
+askinit
+else
+newvar=$(pos $input $i)
+newvarval=$(echo "$input;$newvar" | bc)
+fi
+}
+##define checkvars
+function checkvars {
+if [ $(echo $vars | grep $1) ]
+then
+exist='y' #means yes, it does exist
+elif [ ! $(echo $vars | grep $1) ]
+then
+exist='n'
+else
+echo "Something went wrong with subprocess checkvars"
+fi
 #end of initialising
 
 #start of misc eg help
@@ -78,9 +101,22 @@ fi
 #start of code
 
 read input
+length=${#input}
 
+for i in $(seq 1 1 $length)
+do
+checkvars $i
+checknum $(pos $input $i) #finds character at $i position of input and checks if it is a character
+if [ $result == 'var' -a exist == "n" ]
+askinit
+elif [ exist == "y" ]
+then
+echo "Detected variable $i but is already in database"
+done
+if [ $initialiseq == "y" ]
+then
+vars="$newvar = $newvarval"":""$vars"
 
-
-if [ 
+echo $vars
 
 
